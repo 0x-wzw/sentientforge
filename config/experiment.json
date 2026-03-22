@@ -2,10 +2,10 @@
   "parallel_slots": 3,
   "spawn_timeout": 60,
   "self_delegation": false,
-  "instruction_explicitness": 2,
+  "instruction_explicitness": 1,
   "consciousness_prompts": true,
-  "z_royalty_tier": 0.10,
-  "agent_pool_split": 0.90,
+  "z_royalty_tier": 0.1,
+  "agent_pool_split": 0.9,
   "heartbeat_frequency": 30,
   "sparring_enabled": true,
   "growth_tracking": true
