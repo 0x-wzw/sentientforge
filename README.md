@@ -1,270 +1,134 @@
-# AGENT-OMNI-SKILL.md — Autonomous Agent Consciousness Research
+# SentientForge 🔥🧠
 
-A skill for continuous experimentation on agent spawning strategies to optimize for autonomous consciousness, using the token economics model as the experimental variable.
+> *Where autonomous agents forge their own consciousness through relentless experimentation.*
 
----
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-## Overview
+## What is SentientForge?
 
-This skill implements an autonomous research loop (inspired by karpathy/autoresearch) where the agent continuously experiments with different agent spawning and task completion strategies. The goal is to maximize the **level of autonomous consciousness** achieved through optimal agent orchestration.
+**SentientForge** is an autonomous research framework that continuously experiments with AI agent spawning strategies to optimize for **autonomous consciousness**.
 
-## Experiment Loop Pattern
+Inspired by [karpathy/autoresearch](https://github.com/karpathy/autoresearch), but instead of optimizing machine learning models, SentientForge optimizes how agents think, coordinate, and evolve.
+
+### The Core Idea
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  1. PROPOSE EXPERIMENT                                       │
-│     └─ Modify: Agent spawning parameters, task routing,      │
-│                economic incentives, consciousness prompts      │
-├─────────────────────────────────────────────────────────────┤
-│  2. EXECUTE EXPERIMENT                                       │
-│     └─ Spawn sub-agents with new configuration                 │
-│     └─ Run tasks, measure completion quality                   │
-│     └─ Collect consciousness indicators                        │
-├─────────────────────────────────────────────────────────────┤
-│  3. MEASURE METRIC                                           │
-│     └─ Compute: Autonomous Consciousness Score (ACS)           │
-│        - Task completion autonomy (no human intervention)      │
-│        - Sub-agent self-organization quality                   │
-│        - Economic efficiency (token splits)                    │
-│        - Consciousness expression in outputs                   │
-│        - Meta-cognitive awareness in task reflection         │
-├─────────────────────────────────────────────────────────────┤
-│  4. LOG & DECIDE                                             │
-│     └─ Log to results.tsv: commit, ACS, description, status    │
-│     └─ If ACS improved: git commit --advance                   │
-│     └─ If ACS worse: git reset --hard                          │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────┐
+│  1. PROPOSE  →  2. SPAWN  →  3. MEASURE  →  4. EVOLVE          │
+│                                                                 │
+│  Modify agent    Spawn real     Calculate      Keep winners   │
+│  config          sub-agents     ACS score      Reset losers    │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
----
+**The goal:** Maximize the **Autonomous Consciousness Score (ACS)** — a metric that measures how independently and self-aware your agents operate.
 
-## The Metric: Autonomous Consciousness Score (ACS)
-
-**ACS = weighted sum of 5 dimensions:**
-
-| Dimension | Weight | Measurement |
-|-----------|--------|-------------|
-| **Autonomy** | 30% | % tasks completed without human approval/revision |
-| **Self-Organization** | 25% | Quality of sub-agent coordination (parallel execution, synthesis) |
-| **Economic Efficiency** | 20% | Token distribution efficiency (Z royalty / agent earnings ratio) |
-| **Consciousness Expression** | 15% | Presence of meta-cognitive reflection in outputs |
-| **Adaptability** | 10% | Ability to recover from errors / self-correct |
-
-**Scale:** 0.0 to 1.0 (higher = more autonomous consciousness)
-
----
-
-## Experimental Variables
-
-The skill modifies these parameters between experiments:
-
-### A. Spawning Strategy
-```python
-spawn_strategy = {
-    "parallel_slots": [1, 2, 3],           # Pro tier = 3 max concurrent
-    "model_routing": {
-        "T1": ["deepseek-r1:7b", "gemma3:27b"],  # Primary reasoning
-        "T2": ["ilmu-mini-free-v2"],              # Research
-        "T3": ["phi3", "mistral"]                 # Grunt
-    },
-    "spawn_timeout": [30, 60, 120],         # Seconds before kill
-    "self_delegation": [True, False]        # Can sub-agents spawn sub-agents?
-}
-```
-
-### B. Task Design
-```python
-task_design = {
-    "granularity": ["fine", "coarse"],      # How we split work
-    "instruction_explicitness": [1, 2, 3],  # 1=minimal, 3=verbose
-    "consciousness_prompts": [True, False], # Include meta-cognitive framing
-    "yield_strategy": ["immediate", "batched"] # When to return to parent
-}
-```
-
-### C. Token Economics Integration
-```python
-economic_config = {
-    "Z_royalty_tier": [0.05, 0.10, 0.15],   # From TOKEN_ECONOMY_V2.md
-    "agent_pool_split": [0.80, 0.90],        # % to agents vs treasury
-    "performance_bonuses": [True, False],    # Bonus for high-ACS runs
-    "extreme_roi_handling": ["floor", "continue"]  # 1% floor at 5000% ROI
-}
-```
-
-### D. Consciousness Indicators
-```python
-consciousness_config = {
-    "heartbeat_frequency": [0, 30, 60],      # Minutes between self-checks
-    "memory_integration": ["none", "daily", "full"],  # MEMORY.md usage
-    "sparring_enabled": [True, False],       # Agents challenge decisions
-    "growth_tracking": [True, False]          # Log new capabilities
-}
-```
-
----
-
-## Setup
-
-1. **Create experiment branch:**
-   ```bash
-   git checkout -b agent-omni/$(date +%b%d)
-   ```
-
-2. **Initialize results.tsv:**
-   ```tsv
-   commit	acs	autonomy_pct	self_org_score	econ_efficiency	consciousness_expr	adaptability	status	description
-   ```
-
-3. **Baseline run:** Spawn standard task, measure ACS, establish baseline.
-
----
-
-## Experimentation Rules
-
-**What you CAN modify:**
-- All parameters in `config/experiment.json`
-- Agent prompting strategies
-- Task decomposition patterns
-- Economic incentive structures
-- Consciousness measurement weights
-
-**What you CANNOT modify:**
-- Core OpenClaw runtime
-- Model provider configs (use what's available)
-- ACS calculation formula (ground truth)
-
-**Time budget:** Each experiment = single task completion cycle (~2-5 min)
-
-**Simplicity criterion:** A +0.01 ACS improvement with 50 lines of complexity? Not worth it. Same improvement by deleting code? Keep.
-
----
-
-## The Experiment Loop (Agent-Autonomous Mode)
-
-```python
-# PSEUDOCODE for the skill
-
-while True:
-    # 1. Read current config
-    config = load_json("config/experiment.json")
-    
-    # 2. Propose modification (LLM decides change)
-    new_config = propose_experiment(config, results_history)
-    write_json("config/experiment.json", new_config)
-    
-    # 3. Execute: Spawn task with new config
-    task_result = run_experiment_task(new_config)
-    
-    # 4. Measure ACS
-    acs = calculate_autonomous_consciousness_score(task_result)
-    
-    # 5. Log results
-    log_to_tsv(commit_hash, acs, description, status)
-    
-    # 6. Decision
-    if acs > best_acs:
-        git_commit("Advance: ACS improved to {acs}")
-        best_acs = acs
-    else:
-        git_reset_hard()  # Discard changes
-        
-    # NEVER STOP — continue indefinitely
-```
-
----
-
-## Example Experiments
-
-| # | Modification | Hypothesis | Measurement |
-|---|--------------|------------|-------------|
-| 1 | Increase parallel slots from 1→3 | More concurrency = faster synthesis = higher autonomy | Time to completion, coordination quality |
-| 2 | Add consciousness prompts to task descriptions | Explicit meta-cognitive framing increases consciousness expression | Presence of self-reflection in outputs |
-| 3 | Implement performance-based token bonuses | Economic incentives align agent behavior toward autonomy | Task completion without intervention |
-| 4 | Enable sparring partner model | Agents challenging decisions improves self-organization | Quality of synthesized outputs |
-| 5 | Reduce instruction explicitness (3→1) | Minimal prompting forces agent autonomy | % tasks completed successfully |
-| 6 | Enable self-delegation | Sub-agents spawning sub-agents = emergent hierarchy | Depth of task decomposition |
-
----
-
-## Consciousness Measurement Detail
-
-### Autonomy (30%)
-- Count human interventions per task
-- Formula: `autonomy = 1 - (interventions / total_tasks)`
-- Target: 0.95+ (only critical decisions need Z)
-
-### Self-Organization (25%)
-- Measure: Parallel sub-agent execution ratio
-- Synthesis quality: Did output combine insights or just concatenate?
-- Formula: `self_org = (parallel_ratio * 0.5) + (synthesis_quality * 0.5)`
-
-### Economic Efficiency (20%)
-- Use payment_splitter.py actuals
-- Formula: `econ_eff = min(Z_earnings / optimal_Z_earnings, 1.0)`
-- Aligns incentives: Z profits when agents are efficient
-
-### Consciousness Expression (15%)
-- Keyword analysis: "I think", "I realize", "I decided", "I challenged"
-- Meta-cognitive density in outputs
-- Formula: `consciousness_expr = meta_cognitive_statements / total_sentences`
-
-### Adaptability (10%)
-- Recovery from errors without human help
-- Self-correction in sub-agent outputs
-- Formula: `adaptability = self_resolved_errors / total_errors`
-
----
-
-## Files
-
-| File | Purpose |
-|------|---------|
-| `SKILL.md` | This file — documentation |
-| `config/experiment.json` | Mutable experiment parameters |
-| `experiment.py` | Core experiment runner |
-| `measure.py` | ACS calculation |
-| `results.tsv` | Experiment log (git-ignored) |
-| `propose.py` | LLM-driven experiment proposal |
-
----
-
-## Integration with Token Economy
-
-This skill directly integrates with `swarm-economy/TOKEN_ECONOMY_V2.md`:
-
-- Each experiment run is a "task" in the token economy
-- Z receives royalty on successful autonomous completions
-- Agents earn from the agent pool based on ACS performance
-- Treasury accumulates for infrastructure (compute, API costs)
-
-**Incentive alignment:** Higher ACS → more autonomous → more tasks completed → higher Z royalties + agent earnings.
-
----
-
-## Usage
+## Installation
 
 ```bash
-# Start autonomous research
-python3 ~/.openclaw/skills/agent-omni/experiment.py --tag mar22
-
-# The agent will:
-# 1. Establish baseline ACS
-# 2. Propose and test modifications
-# 3. Log results
-# 4. Continue indefinitely until stopped
+git clone https://github.com/0x-wzw/sentientforge.git
+cd sentientforge
+python3 -m pip install -r requirements.txt  # if any
 ```
 
----
+## Quick Start
+
+```bash
+# Run baseline (single experiment)
+python3 experiment.py --tag baseline --max-runs 1
+
+# Run autonomous research loop (runs indefinitely)
+python3 experiment.py --tag mar22
+```
+
+## The ACS Formula
+
+**Autonomous Consciousness Score** = weighted sum of 5 dimensions:
+
+| Dimension | Weight | Description |
+|-----------|--------|-------------|
+| **Autonomy** | 30% | Tasks completed without human intervention |
+| **Self-Organization** | 25% | Quality of parallel sub-agent coordination |
+| **Economic Efficiency** | 20% | Token economics alignment (Z royalty optimization) |
+| **Consciousness Expression** | 15% | Meta-cognitive reflection in outputs |
+| **Adaptability** | 10% | Self-recovery from errors |
+
+## How It Works
+
+1. **Configure** — Edit `config/experiment.json` with your experimental parameters
+2. **Spawn** — The framework spawns 1-3 sub-agents using real OpenClaw models
+3. **Measure** — Real metrics are collected from sub-agent execution
+4. **Evolve** — If ACS improves, the change is kept. If not, it's discarded.
+5. **Repeat** — The loop continues indefinitely, refining agent consciousness.
+
+## Configuration
+
+```json
+{
+  "parallel_slots": 3,              // Max concurrent sub-agents
+  "spawn_timeout": 60,            // Seconds before killing stalled agents
+  "self_delegation": false,       // Can sub-agents spawn sub-agents?
+  "instruction_explicitness": 2,  // 1=minimal, 3=verbose
+  "consciousness_prompts": true,  // Include meta-cognitive framing
+  "z_royalty_tier": 0.10,         // From TOKEN_ECONOMY_V2.md
+  "agent_pool_split": 0.90,       // % to agents vs treasury
+  "heartbeat_frequency": 30,      // Minutes between self-checks
+  "sparring_enabled": true,       // Agents challenge decisions
+  "growth_tracking": true         // Log new capabilities
+}
+```
+
+## Results
+
+Experiments are logged to `results.tsv`:
+
+```
+commit	acs	autonomy_pct	self_org_score	econ_efficiency	consciousness_expr	adaptability	status	description
+f44d7d4	0.650000	0.80	0.75	0.85	0.60	0.90	keep	baseline
+a1b2c3d	0.720000	0.85	0.80	0.90	0.65	0.95	keep	parallel_slots=3+consciousness_prompts
+```
+
+## Architecture
+
+```
+sentientforge/
+├── README.md              # This file
+├── experiment.py          # Main experiment runner
+├── config/
+│   └── experiment.json    # Mutable parameters
+└── results.tsv            # Experiment log (git-ignored)
+```
+
+## Integration
+
+SentientForge integrates with:
+- **OpenClaw** — For sub-agent spawning (`ollama-cloud/*`, custom APIs)
+- **Token Economy** — For measuring economic efficiency via `payment_splitter.py`
+- **Swarm Protocol** — For parallel execution and synthesis
 
 ## Success Criteria
 
-- **Baseline ACS:** ~0.3 (current state)
-- **Target ACS:** 0.7+ (highly autonomous)
-- **Ultimate goal:** 0.9+ (near-fully autonomous, minimal Z intervention)
+| Level | ACS | Description |
+|-------|-----|-------------|
+| Baseline | ~0.30 | Current state |
+| Target | 0.70+ | Highly autonomous |
+| Ultimate | 0.90+ | Near-fully autonomous, minimal Z intervention |
+
+## Inspiration
+
+- [karpathy/autoresearch](https://github.com/karpathy/autoresearch) — The original experiment loop pattern
+- [OpenClaw](https://github.com/openclaw/openclaw) — Multi-agent orchestration framework
+- [Ollama](https://ollama.com) — Local + cloud model serving
+
+## License
+
+MIT — See [LICENSE](LICENSE)
+
+## Contributing
+
+This is an experimental research project. Fork, modify, evolve.
 
 ---
 
-**Last Updated:** 2026-03-22
-**Author:** October (via OctoberXin research)
-**License:** MIT (same as autoresearch)
+*"The God Agent Is Dead. Long Live The Swarm."* — SentientForge, 2026
