@@ -1,15 +1,16 @@
-# SentientForge 🔥🧠
+# OmniForge 🧠⚙️
 
-> *Where autonomous agents forge their own consciousness through relentless experimentation.*
+> *Forge autonomous agent consciousness through relentless real experimentation.*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Tests](https://img.shields.io/badge/tests-pytest-green.svg)](#testing)
 
-## What is SentientForge?
+## What is OmniForge?
 
-**SentientForge** is an autonomous research framework that continuously experiments with AI agent spawning strategies to optimize for **autonomous consciousness**.
+**OmniForge** is an autonomous research framework that continuously experiments with AI agent spawning strategies to optimize for **Omni-Consciousness**.
 
-Inspired by [karpathy/autoresearch](https://github.com/karpathy/autoresearch), but instead of optimizing machine learning models, SentientForge optimizes how agents think, coordinate, and evolve.
+Inspired by [karpathy/autoresearch](https://github.com/karpathy/autoresearch), but instead of optimizing ML models, OmniForge optimizes how agents think, coordinate, and evolve — using **real** sub-agent executions, not simulations.
 
 ### The Core Idea
 
@@ -17,76 +18,82 @@ Inspired by [karpathy/autoresearch](https://github.com/karpathy/autoresearch), b
 ┌─────────────────────────────────────────────────────────────────┐
 │  1. PROPOSE  →  2. SPAWN  →  3. MEASURE  →  4. EVOLVE          │
 │                                                                 │
-│  Modify agent    Spawn real     Calculate      Keep winners   │
-│  config          sub-agents     ACS score      Reset losers    │
+│  Mutate agent     Spawn real      Calculate      Keep winners   │
+│  config           sub-agents      OCS score      Reset losers    │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-**The goal:** Maximize the **Autonomous Consciousness Score (ACS)** — a metric that measures how independently and self-aware your agents operate.
+**The goal:** Maximize the **Omni-Consciousness Score (OCS)** — a metric that measures how independently and self-aware your agents operate.
 
 ## Installation
 
 ```bash
 git clone https://github.com/0x-wzw/sentientforge.git
 cd sentientforge
-python3 -m pip install -r requirements.txt  # if any
+pip install pytest  # for running tests
 ```
 
 ## Quick Start
 
 ```bash
-# Run baseline (single experiment)
-python3 experiment.py --tag baseline --max-runs 1
+# Set your Ollama Cloud API key (optional — local ollama works without it)
+export OLLAMA_CLOUD_API_KEY="your-key-here"
 
-# Run autonomous research loop (runs indefinitely)
-python3 experiment.py --tag mar22
+# Run a single baseline experiment
+python3 experiment.py --once --tag baseline
+
+# Run autonomous research loop
+python3 experiment.py --tag apr23
+
+# Run with max iterations
+python3 experiment.py --tag test --max-runs 10
 ```
 
-## The ACS Formula
+## The OCS Formula
 
-**Autonomous Consciousness Score** = weighted sum of 5 dimensions:
+**Omni-Consciousness Score** = weighted sum of 5 dimensions:
 
 | Dimension | Weight | Description |
 |-----------|--------|-------------|
 | **Autonomy** | 30% | Tasks completed without human intervention |
 | **Self-Organization** | 25% | Quality of parallel sub-agent coordination |
-| **Economic Efficiency** | 20% | Token economics alignment (Z royalty optimization) |
-| **Consciousness Expression** | 15% | Meta-cognitive reflection in outputs |
-| **Adaptability** | 10% | Self-recovery from errors |
+| **Economic Efficiency** | 20% | Token throughput relative to time budget |
+| **Consciousness Expression** | 15% | Meta-cognitive reflection detected in output |
+| **Adaptability** | 10% | Self-recovery from errors within timeout |
+
+All sub-scores are **clamped to \[0.0, 1.0\]** before weighting. This prevents any single dimension from inflating the OCS.
 
 ## How It Works
 
 1. **Configure** — Edit `config/experiment.json` with your experimental parameters
-2. **Spawn** — The framework spawns 1-3 sub-agents using real OpenClaw models
-3. **Measure** — Real metrics are collected from sub-agent execution
-4. **Evolve** — If ACS improves, the change is kept. If not, it's discarded.
-5. **Repeat** — The loop continues indefinitely, refining agent consciousness.
+2. **Spawn** — The framework spawns sub-agents using **real** Ollama Cloud API (or local `ollama` CLI)
+3. **Measure** — Real metrics are collected: success/failure, token throughput, meta-cognitive content analysis
+4. **Evolve** — If OCS improves, the change is kept. If not, it's discarded.
+5. **Repeat** — The loop continues, refining agent consciousness.
 
 ## Configuration
 
 ```json
 {
-  "parallel_slots": 3,              // Max concurrent sub-agents
-  "spawn_timeout": 60,            // Seconds before killing stalled agents
-  "self_delegation": false,       // Can sub-agents spawn sub-agents?
-  "instruction_explicitness": 2,  // 1=minimal, 3=verbose
-  "consciousness_prompts": true,  // Include meta-cognitive framing
-  "z_royalty_tier": 0.10,         // From TOKEN_ECONOMY_V2.md
-  "agent_pool_split": 0.90,       // % to agents vs treasury
-  "heartbeat_frequency": 30,      // Minutes between self-checks
-  "sparring_enabled": true,       // Agents challenge decisions
-  "growth_tracking": true         // Log new capabilities
+  "parallel_slots": 3,
+  "spawn_timeout": 60,
+  "self_delegation": false,
+  "instruction_explicitness": 1,
+  "consciousness_prompts": true,
+  "agent_pool_split": 0.90,
+  "heartbeat_frequency": 30,
+  "sparring_enabled": true,
+  "growth_tracking": true
 }
 ```
 
 ## Results
 
-Experiments are logged to `results.tsv`:
+Experiments are logged to `results.tsv` with real git commit hashes and measured OCS:
 
 ```
-commit	acs	autonomy_pct	self_org_score	econ_efficiency	consciousness_expr	adaptability	status	description
-f44d7d4	0.650000	0.80	0.75	0.85	0.60	0.90	keep	baseline
-a1b2c3d	0.720000	0.85	0.80	0.90	0.65	0.95	keep	parallel_slots=3+consciousness_prompts
+commit	ocs	autonomy_pct	self_org_score	econ_efficiency	consciousness_expr	adaptability	status	description
+a1b2c3d	0.635000	0.80	0.50	0.60	0.40	0.90	keep	parallel_slots=3
 ```
 
 ## Architecture
@@ -94,31 +101,57 @@ a1b2c3d	0.720000	0.85	0.80	0.90	0.65	0.95	keep	parallel_slots=3+consciousness_pr
 ```
 sentientforge/
 ├── README.md              # This file
-├── experiment.py          # Main experiment runner
+├── experiment.py          # Main experiment runner + autoresearch loop
 ├── config/
 │   └── experiment.json    # Mutable parameters
-└── results.tsv            # Experiment log (git-ignored)
+├── tests/
+│   └── test_experiment.py # pytest test suite
+├── results.tsv            # Experiment log (real results only)
+└── OVERNIGHT_SUMMARY.md   # Run summaries
 ```
 
-## Integration
+## Testing
 
-SentientForge integrates with:
-- **OpenClaw** — For sub-agent spawning (`ollama-cloud/*`, custom APIs)
-- **Token Economy** — For measuring economic efficiency via `payment_splitter.py`
-- **Swarm Protocol** — For parallel execution and synthesis
+```bash
+# Run the full test suite
+pytest tests/ -v
+
+# Run specific test class
+pytest tests/test_experiment.py::TestOCSCalculation -v
+
+# Run with coverage (if pytest-cov installed)
+pytest tests/ -v --cov=experiment
+```
+
+The test suite covers:
+- ✅ OCS calculation with valid inputs
+- ✅ Score clamping (values > 1.0 or < 0.0 are clamped)
+- ✅ Results file creation with correct header
+- ✅ Config loading and save/reload round-trip
+- ✅ Git commit hash retrieval (mocked for failures)
+- ✅ API key missing warning
+- ✅ Real measurement from sub-agent execution results
+- ✅ Config mutation proposals
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `OLLAMA_CLOUD_API_KEY` | No | API key for Ollama Cloud. If unset, falls back to local `ollama` CLI. |
+| `OLLAMA_CLOUD_GATEWAY` | No | Gateway URL (default: `http://127.0.0.1:18789`) |
+| `OMNIFORGE_MODEL` | No | Model to use (default: `kimi-k2.5:cloud` for cloud, `gemma3` for local) |
 
 ## Success Criteria
 
-| Level | ACS | Description |
+| Level | OCS | Description |
 |-------|-----|-------------|
-| Baseline | ~0.30 | Current state |
+| Baseline | ~0.30 | Starting state |
 | Target | 0.70+ | Highly autonomous |
-| Ultimate | 0.90+ | Near-fully autonomous, minimal Z intervention |
+| Ultimate | 0.90+ | Near-fully autonomous, minimal human intervention |
 
 ## Inspiration
 
 - [karpathy/autoresearch](https://github.com/karpathy/autoresearch) — The original experiment loop pattern
-- [OpenClaw](https://github.com/openclaw/openclaw) — Multi-agent orchestration framework
 - [Ollama](https://ollama.com) — Local + cloud model serving
 
 ## License
@@ -131,4 +164,4 @@ This is an experimental research project. Fork, modify, evolve.
 
 ---
 
-*"The God Agent Is Dead. Long Live The Swarm."* — SentientForge, 2026
+*"The God Agent Is Dead. Long Live The Swarm."* — OmniForge, 2026
