@@ -291,13 +291,20 @@ def measure_scores(result: Dict, config: Dict) -> SubScore:
 def propose_mutation(config: Dict) -> Tuple[Dict, str]:
     """Propose a random mutation to the experiment configuration."""
     mutations = [
-        ("parallel_slots", random.choice([1, 2, 3])),
-        ("instruction_explicitness", random.choice([1, 2, 3])),
-        ("consciousness_prompts", random.choice([True, False])),
-        ("sparring_enabled", random.choice([True, False])),
-        ("spawn_timeout", random.choice([30, 60, 90])),
+        ("parallel_slots", [1, 2, 3]),
+        ("instruction_explicitness", [1, 2, 3]),
+        ("consciousness_prompts", [True, False]),
+        ("sparring_enabled", [True, False]),
+        ("spawn_timeout", [30, 60, 90]),
     ]
-    key, value = random.choice(mutations)
+    # Pick a mutation that actually changes the value
+    candidates = [(k, v) for k, values in mutations for v in values if config.get(k) != v]
+    if not candidates:
+        # All values already match defaults — force a change on first key
+        key = mutations[0][0]
+        value = [v for v in mutations[0][1] if config.get(key) != v][0]
+        candidates = [(key, value)]
+    key, value = random.choice(candidates)
     new_config = dict(config)
     new_config[key] = value
     desc = f"{key}={value}"
@@ -373,12 +380,13 @@ def run_loop(tag: str = "default", max_runs: int = 0) -> None:
             ocs, scores, _ = run_experiment(candidate, tag=desc)
 
             # Decide: keep or discard
+            old_best = best_ocs
             if ocs > best_ocs:
                 status = "keep"
                 best_ocs = ocs
                 best_config = dict(candidate)
                 config.update({k: candidate[k] for k in candidate if candidate[k] != config.get(k)})
-                log.info(f"✅ KEPT (ocs={ocs:.4f} > best={best_ocs:.4f})")
+                log.info(f"✅ KEPT (ocs={ocs:.4f} > best={old_best:.4f})")
             else:
                 status = "discard"
                 log.info(f"❌ DISCARDED (ocs={ocs:.4f} <= best={best_ocs:.4f})")

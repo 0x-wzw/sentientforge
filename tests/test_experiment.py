@@ -240,7 +240,7 @@ class TestAPIKeyCheck:
         # Should not have any string that looks like a partial API key
         assert "5c71d4" not in content
         assert "44f8" not in content
-        assert "OPENCLAW_API_KEY=" not in content  # old var name
+        assert "OPENCLAW_API_KEY" not in content  # old var name
 
 
 # ── Measure Scores ───────────────────────────────────────────────────────
